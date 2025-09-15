@@ -1,4 +1,4 @@
-package domain.entities;
+package com.siddhant.tasks.domain.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

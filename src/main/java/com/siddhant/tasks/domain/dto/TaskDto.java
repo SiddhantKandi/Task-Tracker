@@ -1,7 +1,7 @@
-package domain.dto;
+package com.siddhant.tasks.domain.dto;
 
-import domain.entities.TaskPriority;
-import domain.entities.TaskStatus;
+import com.siddhant.tasks.domain.entities.TaskPriority;
+import com.siddhant.tasks.domain.entities.TaskStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

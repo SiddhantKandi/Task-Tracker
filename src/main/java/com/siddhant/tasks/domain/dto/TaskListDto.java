@@ -1,4 +1,4 @@
-package domain.dto;
+package com.siddhant.tasks.domain.dto;
 
 import java.util.List;
 import java.util.UUID;
