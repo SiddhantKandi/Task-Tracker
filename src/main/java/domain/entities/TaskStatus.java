@@ -1,4 +1,4 @@
-package com.siddhant.tasks.domain.entities;
+package domain.entities;
 
 public enum TaskStatus {
     OPEN,CLOSED

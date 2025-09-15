@@ -1,4 +1,4 @@
-package com.siddhant.tasks.domain.entities;
+package domain.entities;
 
 import jakarta.persistence.*;
 
