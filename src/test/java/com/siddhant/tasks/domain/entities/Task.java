@@ -1,7 +1,6 @@
 package com.siddhant.tasks.domain.entities;
 
 import jakarta.persistence.*;
-import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
-public class tasks {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,22 +30,27 @@ public class tasks {
     @Column(name="priority", nullable = false)
     private TaskPriority priority;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_list_id")
+    private TaskList taskList;
+
     @Column(name="createdAt", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
-    public tasks() {
+    public Task() {
     }
 
-    public tasks(UUID id, String title, String description, LocalDateTime dueDate, TaskStatus status, TaskPriority priority, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Task(UUID id, String title, String description, LocalDateTime dueDate, TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
         this.priority = priority;
+        this.taskList = taskList;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -99,6 +103,14 @@ public class tasks {
         this.priority = priority;
     }
 
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -118,24 +130,25 @@ public class tasks {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        tasks tasks = (tasks) o;
-        return Objects.equals(id, tasks.id) && Objects.equals(title, tasks.title) && Objects.equals(description, tasks.description) && Objects.equals(dueDate, tasks.dueDate) && status == tasks.status && priority == tasks.priority && Objects.equals(createdAt, tasks.createdAt) && Objects.equals(updatedAt, tasks.updatedAt);
+        Task task = (Task) o;
+        return Objects.equals(id, task.id) && Objects.equals(title, task.title) && Objects.equals(description, task.description) && Objects.equals(dueDate, task.dueDate) && status == task.status && priority == task.priority && Objects.equals(taskList, task.taskList) && Objects.equals(createdAt, task.createdAt) && Objects.equals(updatedAt, task.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, dueDate, status, priority, createdAt, updatedAt);
+        return Objects.hash(id, title, description, dueDate, status, priority, taskList, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
-        return "tasks{" +
+        return "Task{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", dueDate=" + dueDate +
                 ", status=" + status +
                 ", priority=" + priority +
+                ", taskList=" + taskList +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
